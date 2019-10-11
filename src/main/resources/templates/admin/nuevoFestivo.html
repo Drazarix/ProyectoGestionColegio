@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<title>Nuevo Festivo</title>
+
+<link
+	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+	rel="stylesheet">
+<link href="../../static/css/index-estilo.css"
+	th:href="@{/css/index-estilo.css}" type="text/css" rel="stylesheet">
+<link rel="stylesheet" href="../../static/css/formulario.css"
+	th:href="@{/css/formulario.css}" type="text/css">
+
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+	integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay"
+	crossorigin="anonymous">
+</head>
+
+<body>
+	<!-- Navigation -->
+
+	<div th:replace="fragments/perfil::perfil"></div>
+
+	<header th:replace="fragments/navTop::menuTop"></header>
+
+	<!-- Formulario para elegir fecha reserva -->
+	<main class="col-12">
+		<div class="container-fluid">
+			<section class="col-10 mt-0 container-fluid">
+				<article>
+					<div class="row">
+						<div class="col-md-12 text-left">
+							<div class="row">
+								<div class="col-md-10 mx-auto">
+									<!-- form card login -->
+									<div class="card rounded-3 shadow">
+										<div class="card-header">
+											<h3 class="mb-1 py-2" th:text="#{nuevoFestivo}">Nueva
+												Reserva</h3>
+										</div>
+										<div class="card-body">
+											<form method="POST" th:object="${festivo}"
+												th:action="@{/admin/gestionFestivos/submit}"
+												enctype="multipart/form-data">
+												<hr size="30">
+												<div class="row justify-content-center">
+													<div class="col-md-5">
+														<div class="md-form mb-0">
+															<label for="nombre" class="pt-1" th:text="#{nombre}">Nombre</label>
+															<input type="text" id="nombre" name="nombre"
+																class="form-control" th:field="${festivo.nombre}"
+																required>
+														</div>
+													</div>
+												</div>
+												<div class="row justify-content-center">
+													<div class="col-md-5">
+														<div class="md-form mb-0 form-group">
+															<label for="date" class="pt-1" th:text="#{fecha}">Fecha</label>
+															<input class="form-control" type="date" id="fecha"
+																th:field="*{fecha}" th:attr="min=${hoy}" required>
+														</div>
+													</div>
+
+												</div><br>
+												<div class="row justify-content-center">
+													<div class="col-md-5">
+														<div class="md-form mb-0">
+															<div class="form-label-group col-11 mx-auto mb-3">
+																<label for="admin">Laborable <span>:</span></label><br />
+																<input type="radio" name="laborable" value="true" /> <label>Si</label><br />
+																<input type="radio" name="laborable" value="false" /> <label>No</label>
+															</div>
+														</div>
+													</div>
+												</div><br>
+												<div class="row justify-content-center">
+													<div class="col-md-5">
+														<div class="md-form mb-0">
+															<button type="submit" class="btn btn-primary"
+																value="Submit" name="buscar" th:text="#{buscar}">Realizar
+																búsqueda</button>
+														</div>
+													</div>
+												</div>
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</article>
+			</section>
+		</div>
+	</main>
+	<!-- Footer -->
+	<footer th:replace="fragments/footer::footer"></footer>
+	<!-- End of Footer -->
+
+	<!-- Optional JavaScript -->
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+		crossorigin="anonymous"></script>
+
+	<!-- Bootstrap core JavaScript-->
+	<script src="vendor/jquery/jquery.min.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

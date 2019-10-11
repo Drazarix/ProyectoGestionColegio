@@ -1,0 +1,84 @@
+<header th:fragment="menuTop">
+        <nav class="mb-1 navbar navbar-expand-lg navbar-dark bg-dark mb-4 shadow">
+                <a class="navbar-brand ml-3" href="#"  th:href="@{/admin/}" sec:authorize="hasRole('ROLE_ADMIN')"  th:text="#{inicio}">Inicio</a>
+                <a class="navbar-brand ml-3" href="#"  th:href="@{/usuario/}" sec:authorize="hasRole('ROLE_USER')"  th:text="#{inicio}" >Inicio</a>
+				<a class="navbar-brand ml-3" href="#"  th:href="@{/superAdmin/}" th:if="${usuario.superAdmin}==True"  th:text="#{inicio}" >Inicio</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-333"
+                  aria-controls="navbarSupportedContent-333" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent-333">
+                  <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                      <a class="nav-link" href="gestionColegios"  th:text="#{colegios}" th:href="@{/superAdmin/gestionColegios/}" sec:authorize="hasRole('ROLE_SUPER')">Colegios</a>
+                    </li>
+                     <li class="nav-item">
+                      <a class="nav-link" href="gestionFestivos"  th:text="#{diasFestivos}" th:href="@{/admin/gestionFestivos/}" sec:authorize="hasRole('ROLE_ADMIN')">Festivos</a>
+                    </li>
+                     <li class="nav-item">
+                      <a class="nav-link" sec:authorize="hasRole('ROLE_ADMIN')" href="gestionAulas" th:text="#{aulas}" th:href="@{/admin/gestionAulas/}">Aulas</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" sec:authorize="hasRole('ROLE_SUPER')" href="gestionAulas" th:text="#{aulas}" th:href="@{/superAdmin/gestionAulas/}">Aulas</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" sec:authorize="hasRole('ROLE_USUARIO')" href="gestionAulas" th:text="#{aulas}" th:href="@{/usuario/listaAulas/}">Aulas</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-333" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false" th:text="#{usuarios}"
+                         href="gestionUsuarios" th:href="@{/admin/gestionUsuarios}" sec:authorize="hasRole('ROLE_ADMIN')">Usuarios
+                      </a>
+                                            <div class="dropdown-menu dropdown-default" aria-labelledby="navbarDropdownMenuLink-333">
+                        <a class="dropdown-item" href="gestionUsuarios"  th:href="@{/admin/gestionUsuarios/}" th:text="#{verUsuarios}">Ver Usuarios</a>
+                        <a class="dropdown-item" href="gestionUsuarios/validaciones"  th:href="@{/admin/gestionUsuarios/validaciones/}" th:text="#{validarUsuarios}">Validar Usuarios</a>
+                      </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-333" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false" th:text="#{reservas}"
+                         href="gestionReservas" th:href="@{/}">Reservas
+                      </a>
+                          <div class="dropdown-menu dropdown-default" aria-labelledby="navbarDropdownMenuLink-333">
+                        <a class="dropdown-item" href="gestionReservas"  th:href="@{/misReservas}" th:text="#{misReservas}" th:if="${usuario.superAdmin}==False">Ver mis reservas</a>
+                        <a class="dropdown-item" href="gestionReservas"  th:href="@{/misReservas/historico}" th:text="#{misReservasHistorico}" th:if="${usuario.superAdmin}==False">Ver mi histórico reservas</a>
+                        <a class="dropdown-item" href="gestionReservas"  th:href="@{/admin/gestionReservas/}" th:text="#{listaDeReservas}" sec:authorize="hasRole('ROLE_ADMIN')">Gestión de reservas</a>
+                        <a class="dropdown-item" href="gestionReservas"  th:href="@{/superAdmin/gestionReservas/}" th:text="#{listaDeReservas}" sec:authorize="hasRole('ROLE_SUPER')">Gestión de reservas</a>
+                        <a class="dropdown-item" href="gestionReservas"  th:href="@{/admin/gestionReservas/historico}" th:text="#{historialReservas}" sec:authorize="hasRole('ROLE_ADMIN')">Histórico reservas</a>
+                        <a class="dropdown-item" href="gestionReservas"  th:href="@{/superAdmin/gestionReservas/historico}" th:text="#{historialReservas}" sec:authorize="hasRole('ROLE_SUPER')">Histórico reservas</a>
+                        <a class="dropdown-item" href="nuevaReserva"  th:href="@{/nuevaReserva/}" sec:authorize="!hasRole('ROLE_SUPER')" th:text="#{reserva}">Reservar</a>
+                      </div>
+                      
+                    </li>
+                  </ul>
+                  <ul class="navbar-nav ml-auto nav-flex-icons">
+                  
+                      <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle mr-2" id="navbarDropdownMenuLink-334" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-language text-white"></i>
+                      </a>
+                      <div class="dropdown-menu dropdown-menu-right dropdown-default"
+                        aria-labelledby="navbarDropdownMenuLink-334">
+                        <a class="dropdown-item" href="#" th:href="@{''(lang=es_ES)}"><img  src="../../static/img/espana.svg" width="35px" 
+			th:src="@{/img/espana.svg}"> Español</a>
+                        <a class="dropdown-item" href="#" th:href="@{''(lang=en_EN)}"><img src="../../static/img/reino-unido.svg" width="35px"
+			th:src="@{/img/reino-unido.svg}"> Inglés</a>
+                      </div>
+                    </li>
+       
+                    <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle mr-2" id="navbarDropdownMenuLink-333" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-user text-white"></i>
+                      </a>
+                      <div class="dropdown-menu dropdown-menu-right dropdown-default"
+                        aria-labelledby="navbarDropdownMenuLink-333">
+                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#exampleModal" th:text="#{perfil}">Perfil</a>
+                        <a class="dropdown-item" href="#" th:href="@{/logout}" th:text="#{salir}">Salir</a>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </nav>
+</header>

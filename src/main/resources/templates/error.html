@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+	<title>Error-404</title>
+
+	<!-- Google font -->
+	<link href="https://fonts.googleapis.com/css?family=Maven+Pro:400,900" rel="stylesheet">
+
+	<!-- Custom stlylesheet -->
+	<link type="text/css" rel="stylesheet" href="../static/css/error.css"  th:href="@{/css/error.css}" />
+</head>
+<body>
+
+	<div id="notfound">
+		<div class="notfound">
+			<div class="notfound-404">
+				<h1>404</h1>
+			</div>
+			<h2 th:text="#{tituloError404}">Lo sentimos, página no encontrada</h2>
+			<p th:text="#{mensajeError404}">La página que busca está retirada, cambio de nombre o no se encuentra actualmente disponible.
+            </p>
+			<a href="#"  th:text="#{volverInicio}" sec:authorize="hasRole('ROLE_SUPER')" th:href="@{/superAdmin/}" >Volver a inicio</a>
+			<a href="#"  th:text="#{volverInicio}" sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/admin/}" >Volver a inicio</a>
+			<a href="#" th:text="#{volverInicio}" sec:authorize="hasRole('ROLE_USER')" th:href="@{/usuario/} ">Volver a Inicio</a>
+		</div>
+	</div>
+</body>
+</html>

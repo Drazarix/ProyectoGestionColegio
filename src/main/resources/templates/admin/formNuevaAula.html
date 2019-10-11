@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<title>Editar Aulas</title>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<link
+	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+	rel="stylesheet">
+<link href="../../static/css/index-estilo.css"
+	th:href="@{/css/index-estilo.css}" type="text/css" rel="stylesheet">
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+	integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay"
+	crossorigin="anonymous">
+</head>
+<body class="bg-white">
+	<!-- Navigation -->
+	    <div th:replace="fragments/perfil::perfil"></div>
+	
+	<header th:replace="fragments/navTop::menuTop"></header>
+	<main class="col-12">
+	<div class="container-fluid">
+		<section>
+			<article class="mb-4">
+
+				<div class="row">
+					<div class="col-md-12 text-left">
+						<div class="row">
+							<div class="col-md-10 mx-auto">
+								<!-- form card login -->
+								<div class="card rounded-3 shadow">
+									<div class="card-header">
+										<h3 th:if="${aula.id != 0}" class="mb-1 text-center py-2"
+											th:text="#{editarAula}">Editar Aula</h3>
+										<h3 th:if="${aula.id == 0}" class="mb-1 text-center py-2"
+											th:text="#{nuevaAula}">Nueva Aula</h3>
+									</div>
+									<div class="card-body">
+										<form
+											th:action="${aula.id != 0} ? @{/admin/gestionAulas/editar/submit} : @{/admin/gestionAulas/nuevaAula/submit}"
+											id="aula-form" name="aula-form" action="mail.php"
+											method="POST">
+											<hr size="30">
+											<div class="row">
+												<div class="col-12">
+													<input th:if="${aula.id != 0}" type="hidden" name="id"
+														th:field="${aula.id}" /> <input th:if="${aula.id != 0}"
+														type="hidden" name="id" th:field="${aula.colegio}" />
+												</div>
+											</div>
+
+											<div class="row">
+												<div class="col-md-12">
+													<div class="md-form mb-0">
+														<label for="nombre" class="pt-1" th:text="#{nombreD}">Nombre</label>
+														<input type="text" id="nombre" name="nombre"
+															class="form-control" th:field="${aula.nombre}" required>
+													</div>
+												</div>
+											</div>
+											
+											  <div class="row pt-2 d-none">
+                      <div class="col-md-12">
+              			    <div class="md-form mb-0">
+													<label  for="colegio" th:text="#{colegio}" class="">Colegio</label> <select
+														name="colegio" id="colegio" class="custom-select"
+														th:field="${usuario.colegio}" >
+														<option 
+															th:each="colegio : ${colegios}"
+															th:value="${colegio.id}"
+															th:text="${colegio.nombre}" ></option>
+													</select>
+												</div>
+                      </div>
+                    </div> 
+											
+											
+											<div class="text-right text-md-right pr-3 pb-4 py-5">
+												<button type="submit" class="btn btn-primary" value="Submit"
+													th:text="#{enviar}">Enviar</button>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+			</article>
+		</section>
+	</div>
+	</main>
+
+
+	<footer th:replace="fragments/footer::footer"></footer>
+
+	<!-- Optional JavaScript -->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+		crossorigin="anonymous"></script>
+</body>
+
+</html>

@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<title>Title</title>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<link
+	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+	rel="stylesheet">
+<link href="../../static/css/index-estilo.css"
+	th:href="@{/css/index-estilo.css}" type="text/css" rel="stylesheet">
+<link href="../../static/css/listas.css" th:href="@{/css/listas.css}"
+	type="text/css" rel="stylesheet">
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+	integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay"
+	crossorigin="anonymous">
+</head>
+<body class="bg-white">
+	<!-- Navigation -->
+	<div th:replace="fragments/perfil::perfil"></div>
+
+	<header th:replace="fragments/navTop::menuTop"></header>
+
+	<!--Cuerpo-->
+	<main class="col-12">
+		<div class="container-fluid">
+			<section class="col-10 mt-0 container-fluid">
+				<article>
+					<div class="card border-light mb-3">
+						<div class="card-header row mr-0 ml-0">
+							<h3 class="col-xl-7 col-lg-5 col-md-4 col-sm-3 col-12"
+								th:text="#{historialReservas}"></h3>
+							<form action="#"
+								th:action="@{/superAdmin/gestionReservas/historico}"
+								method="GET"
+								class=" col-xl-4 col-md-7 col-lg-6 col-sm-8 col-12 form-inline">
+								<input type="search" name="nombre" class="form-control mr-sm-2"
+									placeholder="Buscar Por Aula" aria-label="Search">
+								<button class="btn btn-outline-primary my-2 my-sm-0"
+									type="submit" th:text="#{buscar}">Buscar</button>
+							</form>
+							<a
+								class="btn btn-primary
+	                  col-xl-1 col-lg-1 col-md-1 col-sm- col-12"
+								href="#" th:href="@{/superAdmin/gestionReservas}" role="button"><i
+								class="fas fa-arrow-left"></i></a>
+						</div>
+						<div class="card-body text-dark">
+
+							<table
+								class="table table-bordered table-hover table-light table-responsive-xl table-striped">
+								<caption th:text="#{listaDeReservas}">Lista de
+									Reservas</caption>
+								<thead class="thead-dark">
+									<tr>
+										<th scope="col">ID</th>
+										<th scope="col" th:text="#{fecha}">Fecha</th>
+										<th scope="col" th:text="#{usuario}">Usuario</th>
+										<th scope="col" th:text="#{colegio}">Colegio</th>
+										<th scope="col" th:text="#{aula}">Aula</th>
+										<th scope="col" th:text="#{hora}">Hora</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="reserva : ${listaReservas}" class="text-center">
+										<th th:text="${reserva.id}"></th>
+										<td
+											th:text="${#temporals.format(reserva.fecha, 'dd/MM/yyyy')}"></td>
+										<td
+											th:text="${reserva.usuario.nombre}+' '+${reserva.usuario.apellidos}"></td>
+										<td th:text="${reserva.usuario.colegio.nombre}"></td>
+										<td th:text="${reserva.aula.nombre}"></td>
+										<td th:text="${reserva.horaI}"></td>
+									</tr>
+								</tbody>
+							</table>
+
+							<div class="row">
+								<div class="form-group col-md-1">
+									<select class="form-control pagination" id="pageSizeSelect">
+										<option th:each="pageSize : ${pageSizes}"
+											th:text="${pageSize}" th:value="${pageSize}"
+											th:selected="${pageSize} == ${selectedPageSize}"></option>
+									</select>
+								</div>
+								<div th:if="${listaReservas.totalPages != 1}"
+									class="form-group col-md-11 pagination-centered">
+									<nav aria-label="Page navigation example">
+										<ul class="pagination justify-content-end">
+											<!-- Si el número de página es cero, deshabilitamos el enlace -->
+											<li class="page-item"
+												th:class="${listaReservas.number == 0} ? disabled">
+												<!-- Este enlace nos debe llevar a la primera página, con el tamaño de página actual -->
+												<a class="page-link text-dark"
+												th:href="@{/superAmin/gestionReservas/historico/(pageSize=${selectedPageSize}, page=1, nombre=${param.nombre})}">&laquo;</a>
+											</li>
+											<!-- Si el número de página es cero, deshabilitamos el enlace -->
+											<li class="page-item"
+												th:class="${listaReservas.number == 0} ? disabled">
+												<!-- Este enlace nos debe llevar a la página anterior, con el tamaño de página actual -->
+												<a class="page-link text-dark"
+												th:href="@{/superAmin/gestionReservas/historico/(pageSize=${selectedPageSize}, page=${listaReservas.number}, nombre=${param.nombre})}">&larr;</a>
+											</li>
+											<!-- Este bucle genera los enlaces para las demás páginas -->
+											<li class="page-item"
+												th:class="${listaReservas.number == (page - 1)} ? 'active pointer-disabled'"
+												th:each="page : ${#numbers.sequence(pager.startPage, pager.endPage)}">
+												<a class="page-link text-dark"
+												th:href="@{/superAmin/gestionReservas/historico/(pageSize=${selectedPageSize}, page=${page}, nombre=${param.nombre})}"
+												th:text="${page}"></a>
+											</li>
+											<!-- Enlace a la siguiente página; si estamos en la última queda desabilitado  -->
+											<li class="page-item"
+												th:class="${listaReservas.number + 1 == listaReservastotalPages} ? disabled">
+												<a class="page-link text-dark"
+												th:href="@{/superAmin/gestionReservas/historico/(pageSize=${selectedPageSize}, page=${listaReservas.number + 2}, nombre=${param.nombre})}">&rarr;</a>
+											</li>
+											<!-- Enlace a la última página; si estamos en la última queda desabilitado  -->
+											<li class="page-item"
+												th:class="${listaReservas.number + 1 == listaReservas.totalPages} ? disabled">
+												<a class="page-link text-dark"
+												th:href="@{/superAmin/gestionReservas/historico/(pageSize=${selectedPageSize}, page=${listaReservas.totalPages}, nombre=${param.nombre})}">&raquo;</a>
+											</li>
+										</ul>
+									</nav>
+								</div>
+							</div>
+						</div>
+					</div>
+
+
+				</article>
+			</section>
+		</div>
+	</main>
+
+	<!-- Footer -->
+
+	<footer th:replace="fragments/footer::footer"></footer>
+	<!-- End of Footer -->
+
+	<!-- Optional JavaScript -->
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+		crossorigin="anonymous"></script>
+
+	<!-- Bootstrap core JavaScript-->
+	<script src="vendor/jquery/jquery.min.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+	<script type="text/javascript"
+		th:src="@{/js/paginarHistoricoReservasSuper.js}"></script>
+
+
+</body>
+</html>

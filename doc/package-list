@@ -1,0 +1,10 @@
+com.salesianostriana.dam.primerproyectogrupo6
+com.salesianostriana.dam.primerproyectogrupo6.configuration
+com.salesianostriana.dam.primerproyectogrupo6.controller
+com.salesianostriana.dam.primerproyectogrupo6.exception
+com.salesianostriana.dam.primerproyectogrupo6.formbean
+com.salesianostriana.dam.primerproyectogrupo6.model
+com.salesianostriana.dam.primerproyectogrupo6.repository
+com.salesianostriana.dam.primerproyectogrupo6.security
+com.salesianostriana.dam.primerproyectogrupo6.service
+com.salesianostriana.dam.primerproyectogrupo6.service.base

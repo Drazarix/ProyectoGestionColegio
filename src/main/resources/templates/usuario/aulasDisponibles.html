@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<head>
+<title>Reserva - aula</title>
+
+<link
+	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+	rel="stylesheet">
+<link href="../../static/css/index-estilo.css"
+	th:href="@{/css/index-estilo.css}" type="text/css" rel="stylesheet">
+<link rel="stylesheet" href="../../static/css/formulario.css"
+	th:href="@{/css/formulario.css}" type="text/css">
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+	integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay"
+	crossorigin="anonymous">
+</head>
+
+<body>
+	<!-- Navigation -->
+
+	<div th:replace="fragments/perfil::perfil"></div>
+
+	<header th:replace="fragments/navTop::menuTop"></header>
+
+	<!--<div class="row col-12 mt-3 justify-content-center mx-auto"
+		th:object="${reserva}">
+		<input disabled name="id" th:field="*{id}"> <input
+			name="usuario" disabled th:field="*{usuario}"> <input
+			name="rangoH" disabled th:field="*{rangoHorario.horaI}"> <input
+			name="fecha" disabled th:field="*{fecha}">
+	</div>-->
+
+
+	<!-- Formulario para elegir fecha reserva -->
+
+	<main class="col-12">
+		<div class="container-fluid">
+			<section class="col-10 mt-0 container-fluid">
+				<article>
+
+					<div class="row">
+						<div class="col-md-12 text-left">
+							<div class="row">
+								<div class="col-md-10 mx-auto">
+									<!-- form card login -->
+									<div class="card rounded-3 shadow">
+										<div class="card-header">
+											<h3 class="mb-1 py-2" th:text="#{nuevaReserva}">Nueva
+												Reserva</h3>
+										</div>
+										<div class="card-body">
+											<form th:object="${reserva}"
+												th:action="@{/nuevaReserva/submit}"
+												enctype="multipart/form-data" id="aula-form"
+												name="aula-form" action="mail.php" method="POST">
+												<hr size="30">
+												<div class="row">
+													<div class="col-12">
+														<input th:if="*{id!=null}" type="hidden" name="id"
+															th:field="*{id}"> <input th:if="*{id!=null}"
+															type="hidden" name="usuario" th:field="*{usuario}"
+															th:value="*{usuario}">
+													</div>
+												</div>
+
+												<div class="row">
+													<div class="col-md-12">
+														<div class="md-form form-group mb-0">
+															<label for="fecha" class="pt-1" th:text="#{fecha}">Fecha</label>
+															<input type="date" class="form-control"
+																th:field="*{fecha}" readonly />
+														</div>
+													</div>
+												</div>
+
+
+												<div class="row">
+													<div class="col-md-12">
+														<div class="md-form form-group mb-0">
+															<label for="hora" class="pt-1" th:text="#{hora}">hora</label>
+															<input type="text" class="form-control"
+																th:field="*{horaI}" readonly />
+														</div>
+													</div>
+												</div>
+
+												<div class="row">
+													<div class="col-md-12">
+														<div class="md-form form-group mb-0">
+															<label class="pt-1" name="aula">Aula</label> <select
+																class="col-12 p-2 form-control" th:field="*{aula}"
+																required>
+																<option th:each="aula : ${listaAulas}"
+																	th:text="${aula.nombre}" th:value="${aula.id}"></option>
+															</select>
+														</div>
+													</div>
+												</div>
+
+												<div class="text-right text-md-right pr-3 pb-4 py-5">
+													<button type="submit" class="btn btn-primary"
+														value="Submit" th:text="#{reserva}">Enviar</button>
+												</div>
+											</form>
+
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</article>
+			</section>
+		</div>
+	</main>
+
+
+	<!-- Footer -->
+	<footer th:replace="fragments/footer::footer"></footer>
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+		crossorigin="anonymous"></script>
+
+</body>
+
+</html>

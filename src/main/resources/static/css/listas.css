@@ -1,0 +1,13 @@
+article{
+    padding: 12px;
+}
+
+table tbody tr td a{
+    padding-right: 2px;
+    padding-left:  2px;
+}
+
+article nav div ul li{
+    padding-right: 5px;
+    padding-left: 5px;
+}
